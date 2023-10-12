@@ -1,17 +1,26 @@
+import os
 import sqlite3
 
 import click
 import pymysql
+from dotenv import load_dotenv
 from flask import current_app, g
+
+load_dotenv()
+
+db_host = os.environ["DB_HOST"]
+db_user = os.environ["DB_USER"]
+db_password = os.environ["DB_PASSWORD"]
+db_name = os.environ["DB_NAME"]
 
 
 def get_db():
     if "db" not in g:
         g.db = pymysql.connect(
-            host="127.0.0.1",
-            user="root",
-            password="testing",
-            database="flaskr",
+            host=db_host,
+            user=db_user,
+            password=db_password,
+            database=db_name,
             cursorclass=pymysql.cursors.DictCursor,
         )
 

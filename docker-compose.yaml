@@ -1,0 +1,10 @@
+services:
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: testing
+      MYSQL_DATABASE: flaskr
+    ports:
+      - 3306:3306
+    volumes:
+      - "./flaskr:/docker-entrypoint-initdb.d"

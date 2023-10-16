@@ -3,57 +3,58 @@ import tempfile
 
 import pytest
 
-from flaskr import create_app
-from flaskr.db import get_db, init_db
-
-with open(os.path.join(os.path.dirname(__file__), "data.sql"), "rb") as f:
-    _data_sql = f.read().decode("utf8")
+from flaskr import create_app, db
+from flaskr.models import Post, User
 
 
-@pytest.fixture
-def app():
-    db_fd, db_path = tempfile.mkstemp()
+@pytest.fixture(scope="module")
+def test_client():
+    os.environ["CONFIG_TYPE"] = "config.TestingConfig"
+    app = create_app()
 
-    app = create_app(
-        {
-            "TESTING": True,
-            "DATABASE": db_path,
-        }
+    with app.test_client() as testing_client:
+        with app.app_context():
+            yield testing_client
+
+
+@pytest.fixture(scope="module")
+def init_database(test_client):
+    db.create_all()
+
+    user1 = User("michaelr", "password")
+    user2 = User("other", "password")
+
+    db.session.add_all([user1, user2])
+    db.session.commit()
+
+    post1 = Post("first post", "this is a test", user1.id)
+    post2 = Post("second post", "this is another test", user2.id)
+
+    db.session.add_all([post1, post2])
+    db.session.commit()
+
+    yield
+
+    db.close_all_sessions()
+    db.drop_all()
+
+
+@pytest.fixture(scope="function")
+def log_in_default_user(test_client):
+    test_client.post(
+        "/auth/login", data={"username": "michaelr", "password": "password"}
     )
 
-    with app.app_context():
-        init_db()
-        get_db().executescript(_data_sql)
+    yield
 
-    yield app
-
-    os.close(db_fd)
-    os.unlink(db_path)
+    test_client.get("/auth/logout")
 
 
-@pytest.fixture
-def client(app):
-    return app.test_client()
+@pytest.fixture(scope="module")
+def cli_test_client():
+    os.environ["CONFIG_TYPE"] = "config.TestingConfig"
+    app = create_app()
 
+    runner = app.test_cli_runner()
 
-@pytest.fixture
-def runner(app):
-    return app.test_cli_runner()
-
-
-class AuthActions(object):
-    def __init__(self, client):
-        self._client = client
-
-    def login(self, username="test", password="test"):
-        return self._client.post(
-            "/auth/login", data={"username": username, "password": password}
-        )
-
-    def logout(self):
-        return self._client.get("/auth/logout")
-
-
-@pytest.fixture
-def auth(client):
-    return AuthActions(client)
+    yield runner

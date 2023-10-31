@@ -32,5 +32,6 @@ jobs:
         env:
           FLASK_APP: flaskr
         run: |
+          mkdir instance
           poetry run flask init-db
           poetry run pytest

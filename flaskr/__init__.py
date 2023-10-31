@@ -15,8 +15,18 @@ db = SQLAlchemy()
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
 
-    config_type = os.getenv("CONFIG_TYPE", default="config.TestingConfig")
-    app.config.from_object(config_type)
+    if not os.path.exists(app.instance_path):
+        os.makedirs(app.instance_path)
+
+    app.config.from_mapping(
+        SECRET_KEY=os.getenv("SECRET_KEY", default="dev"),
+        SQLALCHEMY_DATABASE_URI=os.getenv(
+            "DATABASE_URI",
+            default=f"sqlite:///{os.path.join(app.instance_path, 'flaskr.db')}",
+        ),
+    )
+    # config_type = os.getenv("CONFIG_TYPE", default="config.TestingConfig")
+    # app.config.from_object(config_type)
 
     initialize_extensions(app)
     register_blueprints(app)

@@ -29,4 +29,8 @@ jobs:
         uses: pre-commit/action@v3.0.0
 
       - name: Run pytest
-        run: poetry run pytest
+        env:
+          FLASK_APP: flaskr
+        run: |
+          poetry run flask init-db
+          poetry run pytest

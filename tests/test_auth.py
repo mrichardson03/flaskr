@@ -1,9 +1,7 @@
 import pytest
-from flask import g, session
+from flask import g
 
 from flaskr.models import User
-
-# from flaskr.db import get_db
 
 
 def test_login_page(test_client):

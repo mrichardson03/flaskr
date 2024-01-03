@@ -7,5 +7,19 @@
   "timezone": "America/New_York",
   "pre-commit": {
     "enabled": true
-  }
+  },
+  "packageRules": [
+    {
+      "description": "Auto merge development dependencies",
+      "matchPackagePatterns": [
+        "black",
+        "isort",
+        "pytest"
+      ],
+      "managers": [
+        "poetry"
+      ],
+      "automerge": true
+    }
+  ]
 }

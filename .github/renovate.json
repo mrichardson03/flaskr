@@ -15,7 +15,8 @@
       "matchPackagePatterns": [
         "black",
         "isort",
-        "pytest"
+        "pytest",
+        "flake8"
       ],
       "matchUpdateTypes": [
         "minor",

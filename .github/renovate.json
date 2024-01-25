@@ -25,6 +25,19 @@
         "poetry"
       ],
       "automerge": true
+    },
+    {
+      "automerge": true,
+      "description": "Group dev dependencies into a single PR and automerge",
+      "groupName": "devDependencies",
+      "managers": [
+        "github-actions",
+        "pre-commit"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ]
     }
   ]
 }

@@ -10,11 +10,16 @@
   },
   "packageRules": [
     {
-      "description": "Auto merge development dependencies",
+      "description": "Group dev dependencies into a single PR and automerge",
+      "groupName": "devDependencies",
       "matchPackagePatterns": [
         "black",
         "isort",
         "pytest"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
       ],
       "managers": [
         "poetry"

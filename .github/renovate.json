@@ -1,44 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base",
-    "schedule:monthly"
-  ],
-  "timezone": "America/New_York",
-  "pre-commit": {
-    "enabled": true
-  },
-  "packageRules": [
-    {
-      "description": "Group dev dependencies into a single PR and automerge",
-      "groupName": "devDependencies",
-      "matchPackagePatterns": [
-        "black",
-        "isort",
-        "pytest",
-        "flake8"
-      ],
-      "matchUpdateTypes": [
-        "minor",
-        "patch"
-      ],
-      "managers": [
-        "poetry"
-      ],
-      "automerge": true
-    },
-    {
-      "automerge": true,
-      "description": "Group dev dependencies into a single PR and automerge",
-      "groupName": "devDependencies",
-      "managers": [
-        "github-actions",
-        "pre-commit"
-      ],
-      "matchUpdateTypes": [
-        "minor",
-        "patch"
-      ]
-    }
+    "github>mrichardson03/renovate-config:python"
   ]
 }

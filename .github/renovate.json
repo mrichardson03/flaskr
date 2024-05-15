@@ -3,14 +3,16 @@
   "extends": [
     "github>mrichardson03/renovate-config:python"
   ],
-  "regexManagers": [
+  "customManagers": [
     {
+      "customType": "regex",
+      "description": "Update _VERSION variables in Dockerfiles",
       "fileMatch": [
-        "(^|/)Dockerfile$",
+        "(^|/|\\.)Dockerfile$",
         "(^|/)Dockerfile\\.[^/]*$"
       ],
       "matchStrings": [
-        "#\\srenovate:\\sdatasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?( extractVersion=(?<extractVersion>.*?))?\\s(ENV|ARG) .*?_VERSION=(?<currentValue>.*)\\s"
+        "# renovate: datasource=(?<datasource>[a-z-]+?)(?: depName=(?<depName>.+?))? packageName=(?<packageName>.+?)(?: versioning=(?<versioning>[a-z-]+?))?\\s(?:ENV|ARG) .+?_VERSION=(?<currentValue>.+?)\\s"
       ]
     }
   ]

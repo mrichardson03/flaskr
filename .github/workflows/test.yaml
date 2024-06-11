@@ -44,7 +44,7 @@ jobs:
           poetry run pytest
 
   wizcli:
-    name: Scan container with wizcli
+    name: Scan image with wizcli
     runs-on: ubuntu-latest
 
     permissions:
@@ -86,7 +86,7 @@ jobs:
         with:
           context: .
           load: true
-          tags: ${{ github.sha }}
+          tags: "${{ github.repository}}:${{ github.sha }}"
 
       - name: Scan Docker image with wizcli
         run: ./wizcli docker scan --image "$IMAGE_NAME:$IMAGE_TAG" --policy "$VULNERABILITY_POLICY" --policy "$SECRETS_POLICY"

@@ -35,6 +35,7 @@ jobs:
       - name: Install poetry
         run: |
           curl -sSL https://install.python-poetry.org | python - -y
+          poetry install
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3

@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## v0.1.1 (2024-06-27)
+
+### Fix
+
+* fix(deps): update dependency sqlalchemy to v2.0.31 (#60)
+
+Co-authored-by: renovate[bot] &lt;29139614+renovate[bot]@users.noreply.github.com&gt; ([`3e2f7dd`](https://github.com/mrichardson03/flaskr/commit/3e2f7dd7d3cc68831756c6b3c81341d85a743a5c))
+
 ## v0.1.0 (2024-06-26)
 
 ### Feature

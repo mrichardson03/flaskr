@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "flaskr"
-version = "0.1.0"
+version = "0.1.1"
 description = "Sample Flask/MySQL multi-tier web app"
 authors = ["Michael Richardson <michaelr@rblabs.org>"]
 readme = "README.md"

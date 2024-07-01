@@ -48,6 +48,28 @@ jobs:
           poetry run flask init-db
           poetry run pytest
 
+  security-scan:
+    name: Run wizcli security scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download wizcli
+        run: |
+          curl -o wizcli https://wizcli.app.wiz.io/latest/wizcli
+          chmod +x wizcli
+          ./wizcli version
+
+      - name: Authenticate to Wiz
+        run: ./wizcli auth --id "$WIZ_CLIENT_ID" --secret "$WIZ_CLIENT_SECRET"
+        env:
+          WIZ_CLIENT_ID: ${{ secrets.WIZ_CLIENT_ID }}
+          WIZ_CLIENT_SECRET: ${{ secrets.WIZ_CLIENT_SECRET }}
+
+      - name: Scan code with wizcli
+        run: ./wizcli dir scan --path . --policy "$VULNERABILITY_POLICY" --policy "$SECRETS_POLICY"
+
   docker:
     name: Docker Build/Scan/Push
     runs-on: ubuntu-latest

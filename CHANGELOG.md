@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## v0.1.2 (2024-07-02)
+
+### Fix
+
+* fix: Werkzeug 3.0.3 (#73) ([`6e32e0e`](https://github.com/mrichardson03/flaskr/commit/6e32e0e122b1422002cf308cb5373f16420a19a7))
+
+* fix: Jinja2 3.1.4 (#72) ([`03dc0cd`](https://github.com/mrichardson03/flaskr/commit/03dc0cd637f56b35c18dedc4034e9a5b0fe26dcc))
+
 ## v0.1.1 (2024-06-27)
 
 ### Fix

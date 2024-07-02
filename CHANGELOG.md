@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## v0.1.3 (2024-07-02)
+
+### Fix
+
+* fix: Update chart version on release (#74)
+
+* fix: Update chart version on release
+
+* chore: Use python-semantic-release only ([`3906ecf`](https://github.com/mrichardson03/flaskr/commit/3906ecf7e8e4c060823849e650f63b0eddfc6599))
+
 ## v0.1.2 (2024-07-02)
 
 ### Fix

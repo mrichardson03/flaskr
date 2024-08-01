@@ -102,7 +102,7 @@ jobs:
 
       - name: Build Docker image
         id: build
-        uses: docker/build-push-action@v5.4.0
+        uses: docker/build-push-action@v6.5.0
         with:
           context: .
           load: true
@@ -131,7 +131,7 @@ jobs:
 
       - name: Build and push Docker image
         id: push
-        uses: docker/build-push-action@v5.4.0
+        uses: docker/build-push-action@v6.5.0
         with:
           context: .
           platforms: linux/amd64,linux/arm64

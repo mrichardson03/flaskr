@@ -58,17 +58,17 @@ jobs:
       - name: Download wizcli
         run: |
           curl -o wizcli https://wizcli.app.wiz.io/latest/wizcli
-          chmod +x wizcli
-          ./wizcli version
+          chmod +x wizcli && sudo mv wizcli /usr/bin/
+          wizcli version
 
       - name: Authenticate to Wiz
-        run: ./wizcli auth --id "$WIZ_CLIENT_ID" --secret "$WIZ_CLIENT_SECRET"
+        run: wizcli auth --id "$WIZ_CLIENT_ID" --secret "$WIZ_CLIENT_SECRET"
         env:
           WIZ_CLIENT_ID: ${{ secrets.WIZ_CLIENT_ID }}
           WIZ_CLIENT_SECRET: ${{ secrets.WIZ_CLIENT_SECRET }}
 
       - name: Scan code with wizcli
-        run: ./wizcli dir scan --path . --policy "$VULNERABILITY_POLICY" --policy "$SECRETS_POLICY"
+        run: wizcli dir scan --path . --policy "$VULNERABILITY_POLICY" --policy "$SECRETS_POLICY"
 
   docker:
     name: Docker Build/Scan/Push
@@ -91,11 +91,11 @@ jobs:
       - name: Download wizcli
         run: |
           curl -o wizcli https://wizcli.app.wiz.io/latest/wizcli
-          chmod +x wizcli
-          ./wizcli version
+          chmod +x wizcli && sudo mv wizcli /usr/bin/
+          wizcli version
 
       - name: Authenticate to Wiz
-        run: ./wizcli auth --id "$WIZ_CLIENT_ID" --secret "$WIZ_CLIENT_SECRET"
+        run: wizcli auth --id "$WIZ_CLIENT_ID" --secret "$WIZ_CLIENT_SECRET"
         env:
           WIZ_CLIENT_ID: ${{ secrets.WIZ_CLIENT_ID }}
           WIZ_CLIENT_SECRET: ${{ secrets.WIZ_CLIENT_SECRET }}
@@ -109,7 +109,7 @@ jobs:
           tags: "${{ github.repository}}:${{ github.sha }}"
 
       - name: Scan Docker image with wizcli
-        run: ./wizcli docker scan --image "$IMAGE_NAME:$IMAGE_TAG" --policy "$VULNERABILITY_POLICY" --policy "$SECRETS_POLICY"
+        run: wizcli docker scan --image "$IMAGE_NAME:$IMAGE_TAG" --policy "$VULNERABILITY_POLICY" --policy "$SECRETS_POLICY"
 
       - name: Log in to Container Registry
         uses: docker/login-action@v3.3.0

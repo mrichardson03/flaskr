@@ -140,4 +140,4 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Tag Docker image with wizcli
-        run: wizcli docker tag --image ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+        run: wizcli docker tag --image ${{ steps.meta.outputs.tags }}

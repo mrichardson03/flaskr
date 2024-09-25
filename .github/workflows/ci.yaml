@@ -137,7 +137,7 @@ jobs:
         run: |
           for tag in DOCKER_METADATA_OUTPUT_TAGS;
           do
-            wizcli docker scan --image tag
+            wizcli docker scan --image $tag
           end
 
       # - name: Build and push Docker image

@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## v0.1.5 (2024-09-25)
+
+### Fix
+
+* fix: Bump app name (#102) ([`8810691`](https://github.com/mrichardson03/flaskr/commit/8810691fe021061fc4f7d638103ee6e33598aa06))
+
+* fix: Remove array ref ([`f72e07c`](https://github.com/mrichardson03/flaskr/commit/f72e07c2c42368d004ce8029ec3311551e44a760))
+
+* fix(deps): update dependency sqlalchemy to v2.0.35 (#100)
+
+Co-authored-by: renovate[bot] &lt;29139614+renovate[bot]@users.noreply.github.com&gt; ([`6b89994`](https://github.com/mrichardson03/flaskr/commit/6b8999416596d39178d0eacc87bc1780c2a29243))
+
 ## v0.1.4 (2024-09-25)
 
 ### Fix

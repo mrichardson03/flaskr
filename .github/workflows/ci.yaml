@@ -118,24 +118,27 @@ jobs:
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
 
-      # - name: Build Docker image
-      #   id: build
-      #   uses: docker/build-push-action@v6.7.0
-      #   with:
-      #     context: .
-      #     load: true
-      #     tags: ${{ steps.meta.outputs.tags }}
-      #     labels: ${{ steps.meta.outputs.labels }}
-
       - name: Build Docker image
         id: build
-        run: |
-          docker build -t ${DOCKER_METADATA_OUTPUT_TAGS[0]} .
+        uses: docker/build-push-action@v6.7.0
+        with:
+          context: .
+          load: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
 
-      - name: Scan Docker image with wizcli
+      # - name: Build Docker image
+      #   id: build
+      #   run: |
+      #     docker build -t ${DOCKER_METADATA_OUTPUT_TAGS[0]} .
+
+      - name: Scan built Docker images with wizcli
         id: scan
         run: |
-          wizcli docker scan --image ${DOCKER_METADATA_OUTPUT_TAGS[0]}
+          for tag in DOCKER_METADATA_OUTPUT_TAGS;
+          do
+            wizcli docker scan --image tag
+          end
 
       # - name: Build and push Docker image
       #   id: push
@@ -147,12 +150,20 @@ jobs:
       #     tags: ${{ steps.meta.outputs.tags }}
       #     labels: ${{ steps.meta.outputs.labels }}
 
-      - name: Push Docker image
+      - name: Push built Docker images
+        if: ${{ github.event_name != 'pull_request' }}
         id: push
         run: |
-          docker push ${DOCKER_METADATA_OUTPUT_TAGS[0]}
+          for tag in DOCKER_METADATA_OUTPUT_TAGS;
+          do
+            docker push $tag
+          done
 
-      - name: Tag Docker image with wizcli
+      - name: Tag built Docker images with wizcli
+        if: ${{ github.event_name != 'pull_request' }}
         id: tag
         run: |
-          wizcli docker tag --image ${DOCKER_METADATA_OUTPUT_TAGS[0]}
+          for tag in DOCKER_METADATA_OUTPUT_TAGS;
+          do
+            wizcli docker tag --image $tag
+          done

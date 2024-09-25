@@ -143,4 +143,7 @@ jobs:
         if: ${{ github.event_name != 'pull_request' }}
         id: tag
         run: |
-          wizcli docker tag --image ${{ steps.meta.outputs.tags[0] }}
+          for tag in $DOCKER_METADATA_OUTPUT_TAGS;
+          do
+            wizcli docker tag --image $tag
+          done

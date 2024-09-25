@@ -140,8 +140,8 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-      - name: Tag image with WizCLI
-        if: ${{ github.event_name != 'pull_request' }}
-        id: tag
-        run: |
-          wizcli docker tag --image "$DOCKER_METADATA_OUTPUT_TAGS"
+      # - name: Tag image with WizCLI
+      #   if: ${{ github.event_name != 'pull_request' }}
+      #   id: tag
+      #   run: |
+      #     echo ${{ steps.push.outputs.digest }}

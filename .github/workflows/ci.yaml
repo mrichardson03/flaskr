@@ -163,7 +163,6 @@ jobs:
         if: ${{ github.event_name != 'pull_request' }}
         id: tag
         run: |
-          for tag in ${DOCKER_METADATA_OUTPUT_TAGS};
-          do
-            wizcli docker tag --image $tag
+          echo "${{ fromJSON(steps.meta.outputs.json) }}" | jq -r '.tags[]' | while read tag; do
+            echo $tag
           done

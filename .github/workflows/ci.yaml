@@ -100,24 +100,6 @@ jobs:
           WIZ_CLIENT_ID: ${{ secrets.WIZ_CLIENT_ID }}
           WIZ_CLIENT_SECRET: ${{ secrets.WIZ_CLIENT_SECRET }}
 
-      - name: Build Docker image
-        id: build
-        uses: docker/build-push-action@v6.7.0
-        with:
-          context: .
-          load: true
-          tags: "${{ github.repository}}:${{ github.sha }}"
-
-      - name: Scan Docker image with wizcli
-        run: wizcli docker scan --image "$IMAGE_NAME:$IMAGE_TAG" --policy "$VULNERABILITY_POLICY"
-
-      - name: Log in to Container Registry
-        uses: docker/login-action@v3.3.0
-        with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Extract metadata (tags, labels)
         id: meta
         uses: docker/metadata-action@v5.5.1
@@ -128,6 +110,25 @@ jobs:
             type=ref,event=pr
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
+
+      - name: Build Docker image
+        id: build
+        uses: docker/build-push-action@v6.7.0
+        with:
+          context: .
+          load: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Scan Docker image with wizcli
+        run: wizcli docker scan --image "$DOCKER_METADATA_OUTPUT_TAGS[0]"
+
+      - name: Log in to Container Registry
+        uses: docker/login-action@v3.3.0
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push Docker image
         id: push
@@ -143,7 +144,4 @@ jobs:
         if: ${{ github.event_name != 'pull_request' }}
         id: tag
         run: |
-          for tag in $DOCKER_METADATA_OUTPUT_TAGS;
-          do
-            wizcli docker tag --image $tag
-          done
+          wizcli docker tag --image "$DOCKER_METADATA_OUTPUT_TAGS[0]"

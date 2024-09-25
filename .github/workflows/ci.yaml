@@ -121,7 +121,11 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Scan Docker image with wizcli
-        run: wizcli docker scan --image "$DOCKER_METADATA_OUTPUT_TAGS"
+        run: |
+          for tag in $DOCKER_METADATA_OUTPUT_TAGS;
+          do
+            wizcli docker scan --image $tag
+          done
 
       - name: Log in to Container Registry
         uses: docker/login-action@v3.3.0
@@ -140,8 +144,9 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-      # - name: Tag image with WizCLI
-      #   if: ${{ github.event_name != 'pull_request' }}
-      #   id: tag
-      #   run: |
-      #     echo ${{ steps.push.outputs.digest }}
+      - name: Tag Docker image with wizcli
+        run: |
+          for tag in $DOCKER_METADATA_OUTPUT_TAGS;
+          do
+            wizcli docker tag --image $tag
+          done

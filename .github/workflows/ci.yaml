@@ -135,35 +135,35 @@ jobs:
       - name: Scan built Docker images with wizcli
         id: scan
         run: |
-          for tag in DOCKER_METADATA_OUTPUT_TAGS;
+          for tag in ${DOCKER_METADATA_OUTPUT_TAGS};
           do
             wizcli docker scan --image $tag
           end
 
-      # - name: Build and push Docker image
-      #   id: push
-      #   uses: docker/build-push-action@v6.7.0
-      #   with:
-      #     context: .
-      #     load: true
-      #     push: ${{ github.event_name != 'pull_request' }}
-      #     tags: ${{ steps.meta.outputs.tags }}
-      #     labels: ${{ steps.meta.outputs.labels }}
-
-      - name: Push built Docker images
-        if: ${{ github.event_name != 'pull_request' }}
+      - name: Build and push Docker image
         id: push
-        run: |
-          for tag in DOCKER_METADATA_OUTPUT_TAGS;
-          do
-            docker push $tag
-          done
+        uses: docker/build-push-action@v6.7.0
+        with:
+          context: .
+          load: true
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+      # - name: Push built Docker images
+      #   if: ${{ github.event_name != 'pull_request' }}
+      #   id: push
+      #   run: |
+      #     for tag in DOCKER_METADATA_OUTPUT_TAGS;
+      #     do
+      #       docker push $tag
+      #     done
 
       - name: Tag built Docker images with wizcli
         if: ${{ github.event_name != 'pull_request' }}
         id: tag
         run: |
-          for tag in DOCKER_METADATA_OUTPUT_TAGS;
+          for tag in ${DOCKER_METADATA_OUTPUT_TAGS};
           do
             wizcli docker tag --image $tag
           done

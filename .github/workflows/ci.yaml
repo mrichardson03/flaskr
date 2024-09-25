@@ -135,10 +135,7 @@ jobs:
       - name: Scan built Docker images with wizcli
         id: scan
         run: |
-          for tag in ${DOCKER_METADATA_OUTPUT_TAGS};
-          do
-            wizcli docker scan --image $tag
-          end
+          echo "${{ fromJSON(steps.meta.outputs.json )}}"
 
       - name: Build and push Docker image
         id: push

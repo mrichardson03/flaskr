@@ -1,5 +1,33 @@
 # CHANGELOG
 
+## v0.1.4 (2024-09-25)
+
+### Fix
+
+* fix: Update libexpat1 in base image (#95) ([`93da877`](https://github.com/mrichardson03/flaskr/commit/93da877cab3c8bcbd7bc7925dcc8bba475984dfc))
+
+* fix: Export build results to Docker client (#93) ([`75bd8ca`](https://github.com/mrichardson03/flaskr/commit/75bd8ca668229333bd99f0094d5a6d4d32c066d2))
+
+* fix(deps): update dependency cryptography to v43.0.1 [security] (#91)
+
+Co-authored-by: renovate[bot] &lt;29139614+renovate[bot]@users.noreply.github.com&gt; ([`cdc419f`](https://github.com/mrichardson03/flaskr/commit/cdc419f7f06e45f9a111947baafe068bfbc2c9a8))
+
+* fix(deps): update certifi (#85) ([`85dcc2c`](https://github.com/mrichardson03/flaskr/commit/85dcc2cd0ae2bfdf3f20d73efaa995e8cd7da3bb))
+
+* fix(deps): update dependency sqlalchemy to v2.0.32 (#83)
+
+Co-authored-by: renovate[bot] &lt;29139614+renovate[bot]@users.noreply.github.com&gt; ([`1d6ab25`](https://github.com/mrichardson03/flaskr/commit/1d6ab25948a95ac028c33e10a85d32753f632e8c))
+
+* fix(deps): update dependency cryptography to v43 (#81)
+
+Co-authored-by: renovate[bot] &lt;29139614+renovate[bot]@users.noreply.github.com&gt; ([`323b262`](https://github.com/mrichardson03/flaskr/commit/323b26256a1895c38fcfa466efca8289bbb2eba7))
+
+### Unknown
+
+* Revert &#34;ci: Add wizcli docker tag (#92)&#34; (#94)
+
+This reverts commit 758382bb69362fce005fee35b0192a56d18acc40. ([`aa0fe79`](https://github.com/mrichardson03/flaskr/commit/aa0fe7944b604c53b4f63b57278507f407102e48))
+
 ## v0.1.3 (2024-07-02)
 
 ### Fix

@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.1.6 (2024-09-25)
+
+### Fix
+
+* fix: Unbump app name (#103) ([`62340bc`](https://github.com/mrichardson03/flaskr/commit/62340bce922367ab9915a581f522e8b3ffaa3a13))
+
 ## v0.1.5 (2024-09-25)
 
 ### Fix

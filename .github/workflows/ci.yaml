@@ -134,7 +134,13 @@ jobs:
         uses: docker/build-push-action@v6.7.0
         with:
           context: .
-          platforms: linux/amd64,linux/arm64
+          load: true
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Tag image with WizCLI
+        if: ${{ github.event_name != 'pull_request' }}
+        id: tag
+        run: |
+          wizcli docker tag --tag ${{ steps.meta.outputs.tags[0] }}

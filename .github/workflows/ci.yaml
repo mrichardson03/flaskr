@@ -143,4 +143,4 @@ jobs:
         if: ${{ github.event_name != 'pull_request' }}
         id: tag
         run: |
-          wizcli docker tag --tag ${{ steps.meta.outputs.tags[0] }}
+          wizcli docker tag --image ${{ steps.meta.outputs.tags[0] }}

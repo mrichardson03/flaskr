@@ -1,7 +1,7 @@
 # Compose file for local development/testing.
 services:
-  web:
-    build: .
+  flaskr:
+    build: ../../..
     environment:
       FLASK_APP: flaskr
     ports:

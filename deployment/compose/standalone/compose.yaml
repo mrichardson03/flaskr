@@ -1,0 +1,8 @@
+# Compose file for local development/testing.
+services:
+  flaskr:
+    image: ghcr.io/mrichardson03/flaskr:latest
+    environment:
+      FLASK_APP: flaskr
+    ports:
+      - "5000:5000"

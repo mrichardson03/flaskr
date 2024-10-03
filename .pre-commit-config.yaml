@@ -3,7 +3,7 @@ repos:
     rev: v4.6.0
     hooks:
       - id: check-yaml
-        exclude: ^charts/
+        exclude: ^deployment/charts/
       - id: check-merge-conflict
       - id: end-of-file-fixer
       - id: trailing-whitespace

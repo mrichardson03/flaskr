@@ -1,0 +1,30 @@
+# Create a .env file in the same directory defining the MYSQL_USER,
+# MYSQL_PASSWORD, MYSQL_DATABASE, and DATABASE_URI environment variables before
+# running "docker compose up".
+#
+# SQLAlchemy reference: https://docs.sqlalchemy.org/en/20/dialects/mysql.html
+
+services:
+  flaskr:
+    image: ghcr.io/mrichardson03/flaskr:latest
+    environment:
+      FLASK_APP: flaskr
+      DATABASE_URI: ${DATABASE_URI}
+    ports:
+      - 5000:5000
+    depends_on:
+      db:
+        condition: service_healthy
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: true
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+    ports:
+      - 3306:3306

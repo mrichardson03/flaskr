@@ -1,6 +1,6 @@
-FROM python:3.13-slim as base
+FROM python:3.13-slim AS base
 
-FROM base as develop
+FROM base AS develop
 
 WORKDIR /app
 
@@ -8,6 +8,9 @@ WORKDIR /app
 ARG POETRY_VERSION=1.8.3
 
 ENV FLASK_APP=flaskr
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  gcc build-essential libssl-dev libffi-dev python3-dev
 
 RUN pip install "poetry==${POETRY_VERSION}"
 RUN python -m venv /venv
@@ -19,7 +22,7 @@ COPY . ./
 RUN poetry build && /venv/bin/pip install dist/*.whl
 
 # Multi-stage example
-FROM base as final
+FROM base AS final
 
 # Fix CVE-2024-45490, CVE-2024-45491, CVE-2024-45492 in base image.
 RUN apt-get update && apt-get install -y --no-install-recommends libexpat1=2.5.0-1+deb12u1

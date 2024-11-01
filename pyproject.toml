@@ -49,8 +49,8 @@ version_toml = [
     "pyproject.toml:tool.poetry.version",
 ]
 version_variables = [
-    "charts/flaskr/Chart.yaml:version",
-    "charts/flaskr/Chart.yaml:appVersion"
+    "deployment/charts/flaskr/Chart.yaml:version",
+    "deployment/charts/flaskr/Chart.yaml:appVersion"
 ]
 
 [tool.semantic_release.branches.main]

@@ -5,7 +5,7 @@ FROM base AS develop
 WORKDIR /app
 
 # renovate: datasource=github-releases depName=poetry packageName=python-poetry/poetry
-ARG POETRY_VERSION=1.8.5
+ARG POETRY_VERSION=2.0.1
 
 ENV FLASK_APP=flaskr
 

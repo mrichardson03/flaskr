@@ -1,6 +1,17 @@
 # CHANGELOG
 
 
+## v0.2.3 (2025-02-07)
+
+### Bug Fixes
+
+- **deps**: Update dependency sqlalchemy to v2.0.38
+  ([#138](https://github.com/mrichardson03/flaskr/pull/138),
+  [`da036ff`](https://github.com/mrichardson03/flaskr/commit/da036ff9e4574b71aec74d16fa0d3c26ea2f8c12))
+
+Co-authored-by: renovate[bot] <29139614+renovate[bot]@users.noreply.github.com>
+
+
 ## v0.2.2 (2025-01-02)
 
 ### Bug Fixes

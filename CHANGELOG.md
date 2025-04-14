@@ -1,6 +1,19 @@
 # CHANGELOG
 
 
+## v0.2.4 (2025-04-14)
+
+### Bug Fixes
+
+- **deps**: Update dependency cryptography to v44.0.1 [security]
+  ([#144](https://github.com/mrichardson03/flaskr/pull/144),
+  [`d27d00c`](https://github.com/mrichardson03/flaskr/commit/d27d00cc04293c6e53b16578f6a83c3fe08c0faa))
+
+- **deps**: Update dependency jinja2 to v3.1.6 [security]
+  ([#152](https://github.com/mrichardson03/flaskr/pull/152),
+  [`c6f4d48`](https://github.com/mrichardson03/flaskr/commit/c6f4d486e2f1ee16afb36f1487364832e0f2a75f))
+
+
 ## v0.2.3 (2025-02-07)
 
 ### Bug Fixes

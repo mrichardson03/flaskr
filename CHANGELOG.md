@@ -1,6 +1,17 @@
 # CHANGELOG
 
 
+## v0.2.5 (2025-05-14)
+
+### Bug Fixes
+
+- **deps**: Update dependency flask to v3.1.1 [security]
+  ([#166](https://github.com/mrichardson03/flaskr/pull/166),
+  [`9330205`](https://github.com/mrichardson03/flaskr/commit/9330205e3646b192bdb25e74600780613a8ae21e))
+
+Co-authored-by: renovate[bot] <29139614+renovate[bot]@users.noreply.github.com>
+
+
 ## v0.2.4 (2025-04-14)
 
 ### Bug Fixes

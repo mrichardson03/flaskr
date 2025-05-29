@@ -11,8 +11,8 @@ ENV UV_LINK_MODE=copy
 
 # Install the project's dependencies using the lockfile and settings
 RUN --mount=type=cache,target=/root/.cache/uv \
-    --mount=type=bind,source=uv.lock,target=uv.lock,relabel=shared \
-    --mount=type=bind,source=pyproject.toml,target=pyproject.toml,relabel=shared \
+    --mount=type=bind,source=uv.lock,target=uv.lock \
+    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
     uv sync --locked --no-install-project --no-dev
 
 ENV FLASK_APP=flaskr

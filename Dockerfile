@@ -1,32 +1,30 @@
-FROM python:3.13-slim AS base
+FROM ghcr.io/astral-sh/uv:python3.13-bookworm-slim
 
-FROM base AS develop
-
+# Install the project into '/app'
 WORKDIR /app
 
-# renovate: datasource=github-releases depName=poetry packageName=python-poetry/poetry
-ARG POETRY_VERSION=2.1.2
+# Enable bytecode compilation
+ENV UV_COMPILE_BYTECODE=1
+
+# Copy from the cache instead of linking since it's a mounted volume
+ENV UV_LINK_MODE=copy
+
+# Install the project's dependencies using the lockfile and settings
+RUN --mount=type=cache,target=/root/.cache/uv \
+    --mount=type=bind,source=uv.lock,target=uv.lock \
+    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
+    uv sync --locked --no-install-project --no-dev
 
 ENV FLASK_APP=flaskr
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-  gcc build-essential libssl-dev libffi-dev python3-dev
+# Then, add the rest of the project source code and install it
+# Installing separately from its dependencies allows optimal layer caching
+COPY . /app
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv sync --locked --no-dev
 
-RUN pip install "poetry==${POETRY_VERSION}"
-RUN python -m venv /venv
+ENV PATH="/app/.venv/bin:$PATH"
 
-COPY poetry.lock pyproject.toml ./
-RUN poetry export -f requirements.txt | /venv/bin/pip install -r /dev/stdin
+ENTRYPOINT []
 
-COPY . ./
-RUN poetry build && /venv/bin/pip install dist/*.whl
-
-# Multi-stage example
-FROM base AS final
-
-# Fix CVE-2024-45490, CVE-2024-45491, CVE-2024-45492 in base image.
-RUN apt-get update && apt-get install -y --no-install-recommends libexpat1=2.5.0-1+deb12u1
-
-COPY --from=develop /venv /venv
-COPY docker-entrypoint.sh ./
-CMD ["./docker-entrypoint.sh"]
+CMD ["flask", "run", "--host", "0.0.0.0"]

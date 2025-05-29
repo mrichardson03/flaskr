@@ -14,18 +14,19 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.13
+        python-version-file: ".python-version"
 
-      - name: Install poetry
-        run: |
-          curl -sSL https://install.python-poetry.org | python - -y
-          poetry install
+      - name: Install project
+        run: uv sync --locked --all-extras --dev
 
       - name: python-semantic-release
         run: |
-          poetry run semantic-release -v version
+          uv run semantic-release -v version
         env:
           GH_TOKEN: ${{ secrets.FLASKR_GITHUB_TOKEN }}

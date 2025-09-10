@@ -7,6 +7,8 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
+# fix: bump for uv release
+
 # =============================
 # Application Factory function
 # =============================

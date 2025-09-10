@@ -85,10 +85,6 @@ keep_trailing_newline = false
 extensions = []
 autoescape = true
 
-[tool.semantic_release.commit_author]
-env = "GIT_COMMIT_AUTHOR"
-default = "semantic-release <semantic-release>"
-
 [tool.semantic_release.commit_parser_options]
 allowed_tags = ["build", "chore", "ci", "docs", "feat", "fix", "perf", "style", "refactor", "test"]
 minor_tags = ["feat"]
@@ -104,3 +100,6 @@ insecure = false
 [tool.semantic_release.publish]
 dist_glob_patterns = ["dist/*"]
 upload_to_vcs_release = true
+
+[tool.semantic_release.remote.token]
+env = "FLASKR_GITHUB_TOKEN"

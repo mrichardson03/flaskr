@@ -20,7 +20,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-        python-version-file: ".python-version"
+          python-version-file: "pyproject.toml"
 
       - name: Install project
         run: uv sync --locked --all-extras --dev
@@ -30,3 +30,11 @@ jobs:
           uv run semantic-release -v version
         env:
           GH_TOKEN: ${{ secrets.FLASKR_GITHUB_TOKEN }}
+
+      - name: python-semantic-release
+        id: release
+        uses: python-semantic-release/python-semantic-release@v10.3.0
+        with:
+          github_token: ${{ secrets.FLASKR_GITHUB_TOKEN }}
+          git_committer_name: "github-actions"
+          git_committer_email: "actions@users.noreply.github.com"

@@ -28,7 +28,7 @@ dev = [
 
 [project.optional-dependencies]
 build = [
-    "uv ~= 0.8.0",
+    "uv ~=0.9.7",
     "python-semantic-release ~=10.4.1"
 ]
 

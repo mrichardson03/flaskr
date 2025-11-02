@@ -6,7 +6,7 @@ readme = "README.md"
 authors = [
     { name = "Michael Richardson", email = "8782+mrichardson03@users.noreply.github.com" }
 ]
-requires-python = ">=3.13,<3.14"
+requires-python = ">=3.13"
 dependencies = [
     "cryptography>=45.0.7",
     "flask>=3.1.1",

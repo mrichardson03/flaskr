@@ -28,8 +28,8 @@ dev = [
 
 [project.optional-dependencies]
 build = [
-    "uv ~= 0.8.0",
-    "python-semantic-release ~= 10.3.0"
+    "uv ~=0.10.7",
+    "python-semantic-release ~=10.5.2"
 ]
 
 [tool.pytest.ini_options]

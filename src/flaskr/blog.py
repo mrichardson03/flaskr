@@ -1,4 +1,5 @@
 from flask import Blueprint, flash, g, redirect, render_template, request, url_for
+from sqlalchemy import text
 from werkzeug.exceptions import abort
 
 from flaskr import db
@@ -80,3 +81,19 @@ def delete(id):
     db.session.delete(post)
     db.session.commit()
     return redirect(url_for("blog.index"))
+
+
+# VULNERABILITY: SQL injection via raw string concatenation.
+# User-supplied input is interpolated directly into the SQL query without
+# parameterization. An attacker can manipulate the query with input such as:
+#   ' OR '1'='1       → returns all posts
+#   '; DROP TABLE post; --  → destructive statement injection
+# Fix: use parameterized queries, e.g. text("SELECT ... WHERE title LIKE :q")
+#      with db.session.execute(..., {"q": f"%{query}%"})
+@bp.route("/search")
+def search():
+    query = request.args.get("q", "")
+    # nosec - intentional vulnerability for SAST testing
+    sql = "SELECT * FROM post WHERE title LIKE '%" + query + "%'"
+    results = db.session.execute(text(sql)).fetchall()
+    return render_template("blog/search.html", results=results, query=query)

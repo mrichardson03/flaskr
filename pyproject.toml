@@ -1,6 +1,6 @@
 [project]
 name = "flaskr"
-version = "0.3.1"
+version = "0.3.2"
 description = "Sample Flask/MySQL multi-tier web app"
 readme = "README.md"
 authors = [

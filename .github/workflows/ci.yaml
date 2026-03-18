@@ -3,12 +3,12 @@ name: "CI"
 on:
   push:
     branches:
-      - 'main'
+      - "main"
     tags:
-      - 'v*'
+      - "v*"
   pull_request:
     branches:
-      - 'main'
+      - "main"
 
 env:
   REGISTRY: ghcr.io
@@ -16,6 +16,7 @@ env:
   IMAGE_TAG: ${{ github.sha }}
   VULNERABILITY_POLICY: "Michael-Richardson-SE-Vulnerabilities"
   SECRETS_POLICY: "Michael-Richardson-SE-Secrets"
+  SAST_POLICY: "Michael-Richardson-SE-SAST"
 
 jobs:
   test:
@@ -57,18 +58,15 @@ jobs:
 
       - name: Download wizcli
         run: |
-          curl -o wizcli https://wizcli.app.wiz.io/latest/wizcli
+          curl -o wizcli https://downloads.wiz.io/v1/wizcli/latest/wizcli-linux-amd64
           chmod +x wizcli && sudo mv wizcli /usr/bin
           wizcli version
 
-      - name: Authenticate to Wiz
-        run: wizcli auth --id "$WIZ_CLIENT_ID" --secret "$WIZ_CLIENT_SECRET"
+      - name: Scan code directory with wizcli
+        run: wizcli dir scan --path . --policies="$VULNERABILITY_POLICY,$SECRETS_POLICY,$SAST_POLICY"
         env:
           WIZ_CLIENT_ID: ${{ secrets.WIZ_CLIENT_ID }}
           WIZ_CLIENT_SECRET: ${{ secrets.WIZ_CLIENT_SECRET }}
-
-      - name: Scan code directory with wizcli
-        run: wizcli dir scan --path . --policy "$VULNERABILITY_POLICY"
 
   docker:
     name: Docker Build/Scan/Push
@@ -97,15 +95,9 @@ jobs:
 
       - name: Download wizcli
         run: |
-          curl -o wizcli https://wizcli.app.wiz.io/latest/wizcli
+          curl -o wizcli https://downloads.wiz.io/v1/wizcli/latest/wizcli-linux-amd64
           chmod +x wizcli && sudo mv wizcli /usr/bin
           wizcli version
-
-      - name: Authenticate to Wiz
-        run: wizcli auth --id "$WIZ_CLIENT_ID" --secret "$WIZ_CLIENT_SECRET"
-        env:
-          WIZ_CLIENT_ID: ${{ secrets.WIZ_CLIENT_ID }}
-          WIZ_CLIENT_SECRET: ${{ secrets.WIZ_CLIENT_SECRET }}
 
       - name: Extract metadata (tags, labels)
         id: meta
@@ -134,6 +126,9 @@ jobs:
           do
             wizcli docker scan --image $tag
           done
+        env:
+          WIZ_CLIENT_ID: ${{ secrets.WIZ_CLIENT_ID }}
+          WIZ_CLIENT_SECRET: ${{ secrets.WIZ_CLIENT_SECRET }}
 
       - name: Push built Docker images
         if: ${{ github.event_name != 'pull_request' }}
@@ -152,3 +147,6 @@ jobs:
           do
             wizcli docker tag --image $tag
           done
+        env:
+          WIZ_CLIENT_ID: ${{ secrets.WIZ_CLIENT_ID }}
+          WIZ_CLIENT_SECRET: ${{ secrets.WIZ_CLIENT_SECRET }}

@@ -77,3 +77,27 @@ def test_delete(test_client, init_database, log_in_default_user):
 
     post = Post.query.filter_by(id=1).first()
     assert post is None
+
+
+def test_detail(test_client, init_database):
+    response = test_client.get("/1")
+    assert response.status_code == 200
+    assert b"Flaskr" in response.data
+
+
+def test_detail_not_found(test_client, init_database):
+    response = test_client.get("/999")
+    assert response.status_code == 404
+
+
+def test_detail_author_actions(test_client, init_database, log_in_default_user):
+    # Current user can see Edit/Delete links for their own post
+    response = test_client.get("/1")
+    assert b'href="/1/update"' in response.data
+    assert b'type="submit"' in response.data and b'value="Delete"' in response.data
+
+
+def test_detail_no_actions_for_others(test_client, init_database):
+    # Unauthenticated user should not see Edit/Delete links
+    response = test_client.get("/1")
+    assert b'href="/1/update"' not in response.data

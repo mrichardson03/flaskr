@@ -2,7 +2,7 @@
 
 **Development Commands & Conventions**
 
-*   **Testing**: Tests are run using `pytest`. Coverage reports should be generated with `pytest --cov=flaskr`. Use `pytest-cov` for coverage tracking.
+*   **Testing**: Tests are run using `uv run pytest`. Coverage reports should be generated with `uv run pytest --cov=flaskr`. Use `pytest-cov` for coverage tracking.
 *   **Linting**: Use `ruff` for mandatory code quality checks:
     *   Check: `ruff check .`
     *   Fix: `ruff check . --fix`

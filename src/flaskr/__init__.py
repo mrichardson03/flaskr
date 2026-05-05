@@ -7,8 +7,6 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-# fix: bump for uv release
-
 # =============================
 # Application Factory function
 # =============================
@@ -27,8 +25,9 @@ def create_app(test_config=None):
             default=f"sqlite:///{os.path.join(app.instance_path, 'flaskr.db')}",
         ),
     )
-    # config_type = os.getenv("CONFIG_TYPE", default="config.TestingConfig")
-    # app.config.from_object(config_type)
+
+    if test_config is not None:
+        app.config.update(test_config)
 
     initialize_extensions(app)
     register_blueprints(app)

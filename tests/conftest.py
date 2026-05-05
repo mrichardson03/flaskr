@@ -6,17 +6,16 @@ from flaskr import create_app, db
 from flaskr.models import Post, User
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture
 def test_client():
-    os.environ["CONFIG_TYPE"] = "config.TestingConfig"
-    app = create_app()
+    app = create_app({"SQLALCHEMY_DATABASE_URI": "sqlite://"})
 
     with app.test_client() as testing_client:
         with app.app_context():
             yield testing_client
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture
 def init_database(test_client):
     db.create_all()
 
@@ -38,7 +37,7 @@ def init_database(test_client):
     db.drop_all()
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture
 def log_in_default_user(test_client):
     test_client.post(
         "/auth/login", data={"username": "michaelr", "password": "password"}
@@ -49,7 +48,7 @@ def log_in_default_user(test_client):
     test_client.get("/auth/logout")
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture
 def cli_test_client():
     os.environ["CONFIG_TYPE"] = "config.TestingConfig"
     app = create_app()

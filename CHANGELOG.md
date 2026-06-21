@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v0.3.4 (2026-06-21)
+
+### Bug Fixes
+
+- Update gitpython to 3.1.47
+  ([`0e8c443`](https://github.com/mrichardson03/flaskr/commit/0e8c44366f2a08f89f74350a62adf9c7806f886d))
+
+
 ## v0.3.3 (2026-04-01)
 
 ### Bug Fixes

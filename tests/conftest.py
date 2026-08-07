@@ -10,9 +10,8 @@ from flaskr.models import Post, User
 def test_client():
     app = create_app({"SQLALCHEMY_DATABASE_URI": "sqlite://"})
 
-    with app.test_client() as testing_client:
-        with app.app_context():
-            yield testing_client
+    with app.test_client() as testing_client, app.app_context():
+        yield testing_client
 
 
 @pytest.fixture

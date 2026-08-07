@@ -13,7 +13,7 @@ def test_login_page(test_client):
 def test_valid_login(test_client, init_database):
     response = test_client.post(
         "/auth/login",
-        data=dict(username="michaelr", password="password"),
+        data={"username": "michaelr", "password": "password"},
         follow_redirects=True,
     )
 
@@ -48,7 +48,7 @@ def test_valid_login(test_client, init_database):
 def test_invalid_login(test_client, init_database, username, password, message):
     response = test_client.post(
         "/auth/login",
-        data=dict(username=username, password=password),
+        data={"username": username, "password": password},
         follow_redirects=True,
     )
     assert response.status_code == 200

@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import UTC, datetime
 
 from sqlalchemy import Column, DateTime, ForeignKey, Integer, String, Text
 from sqlalchemy.orm import mapped_column, relationship
@@ -38,7 +38,7 @@ class Post(db.Model):
         self.title = title
         self.body = body
         self.author_id = author_id
-        self.created = datetime.now()
+        self.created = datetime.now(tz=UTC)
 
     def __repr__(self):
         return f"<Post: {self.title}>"

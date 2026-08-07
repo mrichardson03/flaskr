@@ -1,6 +1,19 @@
 # CHANGELOG
 
 
+## v0.3.5 (2026-08-07)
+
+### Bug Fixes
+
+- **deps**: Update dependency python-semantic-release to ~=10.6.1
+  ([#233](https://github.com/mrichardson03/flaskr/pull/233),
+  [`1c0cc59`](https://github.com/mrichardson03/flaskr/commit/1c0cc59da8f25672e94e3ba377e1c7a04d9f7934))
+
+- **deps**: Update dependency uv to ~=0.12.1
+  ([#234](https://github.com/mrichardson03/flaskr/pull/234),
+  [`37a8a0f`](https://github.com/mrichardson03/flaskr/commit/37a8a0f887e6c99834689a110a647c0bbaac3fcb))
+
+
 ## v0.3.4 (2026-06-21)
 
 ### Bug Fixes

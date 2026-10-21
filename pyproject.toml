@@ -30,7 +30,7 @@ dev = [
 
 [project.optional-dependencies]
 build = [
-    "python-semantic-release ~=10.6.1",
+    "python-semantic-release",
     "gitpython>=3.1.50",
 ]
 

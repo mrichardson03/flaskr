@@ -1,6 +1,15 @@
 # CHANGELOG
 
 
+## v0.3.6 (2026-10-21)
+
+### Bug Fixes
+
+- **deps**: Update dependency uv to ~=0.13.4 [security]
+  ([#249](https://github.com/mrichardson03/flaskr/pull/249),
+  [`9e8c71a`](https://github.com/mrichardson03/flaskr/commit/9e8c71a7f59bb8cd24a53bf58951a5886b949fd8))
+
+
 ## v0.3.5 (2026-08-07)
 
 ### Bug Fixes
